@@ -41,6 +41,8 @@ namespace GoogleARCore.Examples.CloudAnchors
         /// </summary>
         public Canvas LobbyScreen;
 
+        public Canvas InfoScreen;
+
         /// <summary>
         /// The snackbar text.
         /// </summary>
@@ -72,6 +74,8 @@ namespace GoogleARCore.Examples.CloudAnchors
         public GameObject JoinRoomListRowPrefab;
 
         public Button ExitRoomButton;
+        public Button ExitLobbyButton;
+        public Button ExitInfoButton;
 
         /// <summary>
         /// The number of matches that will be shown.
@@ -107,6 +111,17 @@ namespace GoogleARCore.Examples.CloudAnchors
             if (!m_Manager.isNetworkActive) {
                 SetupNetwork();
             }
+
+            Debug.Log("PlayerPrefs:" + PlayerPrefs.GetInt("ShowInfoScreen", 0));
+
+            if (PlayerPrefs.GetInt("ShowInfoScreen", 0) == 1)
+            {
+                InfoScreen.enabled = true;
+            }
+            else {
+                InfoScreen.enabled = false;
+            }
+            
         }
 
         private void SetupNetwork() {
@@ -139,16 +154,38 @@ namespace GoogleARCore.Examples.CloudAnchors
             ExitRoomButton.onClick.AddListener(() => {
                 OnExitRoomButtonClicked();
             });
+
+            ExitLobbyButton.onClick.AddListener(() => {
+                OnExitLobbyButtonClicked();
+            });
+
+            ExitInfoButton.onClick.AddListener(() => {
+                OnExitInfoButtonClicked();
+            });
         }
 
         private void OnExitRoomButtonClicked() {
+
+            PlayerPrefs.SetInt("ShowInfoScreen", 0);
             m_Manager.StopClient();
             m_Manager.StopHost();
 
             StartCoroutine(ExitDelay());
         }
 
-        
+        private void OnExitInfoButtonClicked() {
+            PlayerPrefs.SetInt("ShowInfoScreen", 0);
+            InfoScreen.enabled = false;
+        }
+
+        private void OnExitLobbyButtonClicked()
+        {
+            PlayerPrefs.SetInt("ShowInfoScreen", 1);
+            InfoScreen.enabled = true;
+        }
+
+
+
         IEnumerator ExitDelay()
         {
             yield return new WaitForSeconds(0.1f);//attends un peu
