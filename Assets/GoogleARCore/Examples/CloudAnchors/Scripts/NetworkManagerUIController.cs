@@ -43,10 +43,14 @@ namespace GoogleARCore.Examples.CloudAnchors
 
         public Canvas InfoScreen;
 
+        public Canvas ErrorResetScreen;
+
         /// <summary>
         /// The snackbar text.
         /// </summary>
         public Text SnackbarText;
+
+        public Text ErrorResetText;
 
         /// <summary>
         /// The Label showing the current active room.
@@ -66,16 +70,23 @@ namespace GoogleARCore.Examples.CloudAnchors
         /// <summary>
         /// Text indicating that no previous rooms exist.
         /// </summary>
-        public Text NoPreviousRoomsText;
+        //public Text NoPreviousRoomsText;
+        public GameObject NoPreviousRoomsTextMesh;
+
 
         /// <summary>
         /// The prefab for a row in the available rooms list.
         /// </summary>
         public GameObject JoinRoomListRowPrefab;
 
+        public GameObject StateIconHolder;
+        public GameObject GlobeIcon;
+        public GameObject CameraIcon;
+
         public Button ExitRoomButton;
         public Button ExitLobbyButton;
         public Button ExitInfoButton;
+        public Button ResetAppButton;
 
         /// <summary>
         /// The number of matches that will be shown.
@@ -121,7 +132,10 @@ namespace GoogleARCore.Examples.CloudAnchors
             else {
                 InfoScreen.enabled = false;
             }
-            
+
+            ErrorResetScreen.enabled = false;
+
+
         }
 
         private void SetupNetwork() {
@@ -162,6 +176,14 @@ namespace GoogleARCore.Examples.CloudAnchors
             ExitInfoButton.onClick.AddListener(() => {
                 OnExitInfoButtonClicked();
             });
+
+            ResetAppButton.onClick.AddListener(() => {
+                OnExitRoomButtonClicked();
+            });
+
+            StateIconHolder.gameObject.SetActive(false);
+            GlobeIcon.gameObject.SetActive(false);
+            CameraIcon.gameObject.SetActive(false);
         }
 
         private void OnExitRoomButtonClicked() {
@@ -169,6 +191,10 @@ namespace GoogleARCore.Examples.CloudAnchors
             PlayerPrefs.SetInt("ShowInfoScreen", 0);
             m_Manager.StopClient();
             m_Manager.StopHost();
+
+            StateIconHolder.gameObject.SetActive(false);
+            GlobeIcon.gameObject.SetActive(false);
+            CameraIcon.gameObject.SetActive(false);
 
             StartCoroutine(ExitDelay());
         }
@@ -236,6 +262,10 @@ namespace GoogleARCore.Examples.CloudAnchors
                 SnackbarText.text =
                     "Cloud Anchor added to session! Attempting to resolve anchor...";
             }
+
+            StateIconHolder.gameObject.SetActive(true);
+            GlobeIcon.gameObject.SetActive(true);
+            CameraIcon.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -248,12 +278,16 @@ namespace GoogleARCore.Examples.CloudAnchors
         {
             if (success)
             {
-                SnackbarText.text = "Cloud Anchor successfully hosted! Tap to place more stars.";
+                SnackbarText.text = "Cloud Anchor successfully hosted! Tap to place objects.";
             }
             else
             {
                 SnackbarText.text = "Cloud Anchor could not be hosted. " + response;
             }
+
+            StateIconHolder.gameObject.SetActive(false);
+            GlobeIcon.gameObject.SetActive(false);
+            CameraIcon.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -266,13 +300,17 @@ namespace GoogleARCore.Examples.CloudAnchors
         {
             if (success)
             {
-                SnackbarText.text = "Cloud Anchor successfully resolved! Tap to place more stars.";
+                SnackbarText.text = "Cloud Anchor successfully resolved! Tap to place objects.";
             }
             else
             {
                 SnackbarText.text =
                     "Cloud Anchor could not be resolved. Will attempt again. " + response;
             }
+
+            StateIconHolder.gameObject.SetActive(false);
+            GlobeIcon.gameObject.SetActive(false);
+            CameraIcon.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -281,7 +319,8 @@ namespace GoogleARCore.Examples.CloudAnchors
         /// <param name="errorMessage">The error message to be displayed on the snackbar.</param>
         public void ShowErrorMessage(string errorMessage)
         {
-            SnackbarText.text = errorMessage;
+            //SnackbarText.text = errorMessage;
+            ErrorResetText.text = errorMessage;
         }
 
         /// <summary>
@@ -329,7 +368,8 @@ namespace GoogleARCore.Examples.CloudAnchors
                     button.GetComponentInChildren<Text>().text = string.Empty;
                 }
 
-                NoPreviousRoomsText.gameObject.SetActive(m_Manager.matches.Count == 0);
+                //NoPreviousRoomsText.gameObject.SetActive(m_Manager.matches.Count == 0);
+                NoPreviousRoomsTextMesh.gameObject.SetActive(m_Manager.matches.Count == 0);
 
                 // Add buttons for each existing match.
                 int i = 0;
@@ -342,7 +382,7 @@ namespace GoogleARCore.Examples.CloudAnchors
                         break;
                     }
 
-                    var text = "Room " + _GetRoomNumberFromNetworkId(match.networkId);
+                    var text = "ROOM (" + _GetRoomNumberFromNetworkId(match.networkId) + ")";
                     GameObject button = m_JoinRoomButtonsPool[i++];
                     button.GetComponentInChildren<Text>().text = text;
                     button.GetComponentInChildren<Button>().onClick.AddListener(() =>
@@ -373,7 +413,7 @@ namespace GoogleARCore.Examples.CloudAnchors
             m_CurrentRoomNumber = _GetRoomNumberFromNetworkId(matchInfo.networkId);
             _ChangeLobbyUIVisibility(false);
             SnackbarText.text = "Find a plane, tap to create a Cloud Anchor.";
-            CurrentRoomLabel.GetComponentInChildren<Text>().text = "Room: " + m_CurrentRoomNumber;
+            CurrentRoomLabel.GetComponentInChildren<Text>().text = "ROOM (" + m_CurrentRoomNumber + ")";
         }
 
         /// <summary>
@@ -397,7 +437,7 @@ namespace GoogleARCore.Examples.CloudAnchors
             m_CurrentRoomNumber = _GetRoomNumberFromNetworkId(matchInfo.networkId);
             _ChangeLobbyUIVisibility(false);
             SnackbarText.text = "Waiting for Cloud Anchor to be hosted...";
-            CurrentRoomLabel.GetComponentInChildren<Text>().text = "Room: " + m_CurrentRoomNumber;
+            CurrentRoomLabel.GetComponentInChildren<Text>().text = "ROOM (" + m_CurrentRoomNumber + ")";
         }
 
         /// <summary>

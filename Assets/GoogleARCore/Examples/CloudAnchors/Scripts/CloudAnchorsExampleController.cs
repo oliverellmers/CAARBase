@@ -430,22 +430,34 @@ namespace GoogleARCore.Examples.CloudAnchors
             {
                 UIController.ShowErrorMessage(
                     "Camera permission is needed to run this application.");
+
+                /*
                 m_IsQuitting = true;
                 Invoke("_DoQuit", 5.0f);
+                */
+
+            UIController.ErrorResetScreen.enabled = true;
+
             }
             else if (Session.Status.IsError())
             {
                 UIController.ShowErrorMessage(
                     "ARCore encountered a problem connecting.  Please start the app again.");
+                /*
                 m_IsQuitting = true;
                 Invoke("_DoQuit", 5.0f);
+                */
+                UIController.ErrorResetScreen.enabled = true;
             }
             else if (m_MatchStarted && !m_NetworkManager.IsClientConnected())
             {
                 UIController.ShowErrorMessage(
                     "Network session disconnected!  Please start the app again.");
+                /*
                 m_IsQuitting = true;
                 Invoke("_DoQuit", 5.0f);
+                */
+                UIController.ErrorResetScreen.enabled = true;
             }
         }
 

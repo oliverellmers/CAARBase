@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadScene.unity
     guid: 8e381d8069bcf5a4981c2e5a4a3aceb2
   - enabled: 1
-    path: Assets/GoogleARCore/Examples/CloudAnchors/Scenes/CloudAnchors.unity
-    guid: 83fb41cc294e74bdea57537befa00ffc
+    path: Assets/Scenes/CloudAnchors_Edit.unity
+    guid: 5dcbc3cf1f69fca47bb89d3b0b61429c
   m_configObjects: {}
