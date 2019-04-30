@@ -50,7 +50,9 @@ namespace GoogleARCore.Examples.CloudAnchors
         /// </summary>
         public Text SnackbarText;
 
-        public Text ErrorResetText;
+        //public Text ErrorResetText;
+        //public TextMesh ErrorResetText;
+        public GameObject ErrorResetText;
 
         /// <summary>
         /// The Label showing the current active room.
@@ -167,18 +169,22 @@ namespace GoogleARCore.Examples.CloudAnchors
 
             ExitRoomButton.onClick.AddListener(() => {
                 OnExitRoomButtonClicked();
+                FindObjectOfType<AppController>().Fade();
             });
 
             ExitLobbyButton.onClick.AddListener(() => {
                 OnExitLobbyButtonClicked();
+                FindObjectOfType<AppController>().Fade();
             });
 
             ExitInfoButton.onClick.AddListener(() => {
                 OnExitInfoButtonClicked();
+                FindObjectOfType<AppController>().Fade();
             });
 
             ResetAppButton.onClick.AddListener(() => {
                 OnExitRoomButtonClicked();
+                FindObjectOfType<AppController>().Fade();
             });
 
             StateIconHolder.gameObject.SetActive(false);
@@ -320,7 +326,8 @@ namespace GoogleARCore.Examples.CloudAnchors
         public void ShowErrorMessage(string errorMessage)
         {
             //SnackbarText.text = errorMessage;
-            ErrorResetText.text = errorMessage;
+            ErrorResetText.GetComponent<TextMesh>().text = errorMessage;
+            //ErrorResetText.text = errorMessage;
         }
 
         /// <summary>

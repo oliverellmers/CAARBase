@@ -59,15 +59,15 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Large Assets
-*.mp4
-*.mov
-*.mp3
-*.wav
-*.png
-*.tif
-*.jpeg
-*.jpg
-*.jpeg
+#*.mp4
+#*.mov
+#*.mp3
+#*.wav
+#*.png
+#*.tif
+#*.jpeg
+#*.jpg
+#*.jpeg
 
 CloudServicesApiKey.txt
 
