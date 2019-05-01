@@ -101,6 +101,8 @@ namespace GoogleARCore.Examples.CloudAnchors
         /// </summary>
         private ApplicationMode m_CurrentMode = ApplicationMode.Ready;
 
+        private int ObjectIndex;
+
         /// <summary>
         /// The Network Manager.
         /// </summary>
@@ -139,6 +141,8 @@ namespace GoogleARCore.Examples.CloudAnchors
             ARCoreRoot.SetActive(false);
             ARKitRoot.SetActive(false);
             _ResetStatus();
+
+            ObjectIndex = 0;
         }
 
         /// <summary>
@@ -329,6 +333,11 @@ namespace GoogleARCore.Examples.CloudAnchors
                 .SpawnAnchor(Vector3.zero, Quaternion.identity, m_WorldOriginAnchor);
         }
 
+        public void SetObjectIndex(int i) {
+            ObjectIndex = i;
+            Debug.Log("ObejctIndex: " + ObjectIndex);
+        }
+
         /// <summary>
         /// Instantiates a star object that will be synchronized over the network to other clients.
         /// </summary>
@@ -336,7 +345,7 @@ namespace GoogleARCore.Examples.CloudAnchors
         {
             // Star must be spawned in the server so a networking Command is used.
             GameObject.Find("LocalPlayer").GetComponent<LocalPlayerController>()
-                .CmdSpawnStar(m_LastHitPose.Value.position, m_LastHitPose.Value.rotation);
+                .CmdSpawnStar(ObjectIndex, m_LastHitPose.Value.position, m_LastHitPose.Value.rotation);
         }
 
         /// <summary>

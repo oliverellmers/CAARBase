@@ -35,6 +35,16 @@ namespace GoogleARCore.Examples.CloudAnchors
         /// </summary>
         public GameObject StarPrefab;
 
+        public GameObject[] SpawnObjects;
+        /*
+        public GameObject ArchitravePrefab;
+        public GameObject ColumnPrefab;
+        public GameObject IBeamRandom;
+        public GameObject IBeamTwist;
+        */
+
+        private GameObject ObjectToSpawn;
+
         /// <summary>
         /// The Anchor model that will represent the anchor in the scene.
         /// </summary>
@@ -50,6 +60,8 @@ namespace GoogleARCore.Examples.CloudAnchors
             // A Name is provided to the Game Object so it can be found by other Scripts, since this
             // is instantiated as a prefab in the scene.
             gameObject.name = "LocalPlayer";
+
+            ObjectToSpawn = SpawnObjects[0];
         }
 
         /// <summary>
@@ -73,18 +85,52 @@ namespace GoogleARCore.Examples.CloudAnchors
 #pragma warning restore 618
         }
 
+        /*
+        [Command]
+#pragma warning restore 618
+        public void CmdSetObjectToSpawn(int i)
+        {
+            switch (i)
+            {
+                case 0:
+                    ObjectToSpawn = ArchitravePrefab;
+                    break;
+                case 1:
+                    ObjectToSpawn = ColumnPrefab;
+                    break;
+                case 2:
+                    ObjectToSpawn = IBeamRandom;
+                    break;
+                case 3:
+                    ObjectToSpawn = IBeamTwist;
+                    break;
+                default:
+                    ObjectToSpawn = ArchitravePrefab;
+                    break;
+            }
+#pragma warning disable 618
+
+#pragma warning restore 618
+        }
+        */
+
+
+
         /// <summary>
         /// A command run on the server that will spawn the Star prefab in all clients.
         /// </summary>
         /// <param name="position">Position of the object to be instantiated.</param>
         /// <param name="rotation">Rotation of the object to be instantiated.</param>
 #pragma warning disable 618
+
         [Command]
 #pragma warning restore 618
-        public void CmdSpawnStar(Vector3 position, Quaternion rotation)
+        public void CmdSpawnStar(int objectIndex, Vector3 position, Quaternion rotation)
         {
             // Instantiate Star model at the hit pose.
-            var starObject = Instantiate(StarPrefab, position, rotation);
+            //var starObject = Instantiate(StarPrefab, position, rotation);
+
+            var starObject = Instantiate(SpawnObjects[objectIndex], position, rotation);
 
             // Spawn the object in all clients.
 #pragma warning disable 618

@@ -87,8 +87,13 @@ namespace GoogleARCore.Examples.CloudAnchors
 
         public Button ExitRoomButton;
         public Button ExitLobbyButton;
+        public Button CreateRoomButton;
         public Button ExitInfoButton;
         public Button ResetAppButton;
+
+        //Temp
+        public Slider ObjectIndexSlider;
+        public SOEvent_Integer SO_SetObjectToSpawn;
 
         /// <summary>
         /// The number of matches that will be shown.
@@ -177,6 +182,10 @@ namespace GoogleARCore.Examples.CloudAnchors
                 FindObjectOfType<AppController>().Fade();
             });
 
+            CreateRoomButton.onClick.AddListener(() => {
+                FindObjectOfType<AppController>().Fade();
+            });
+
             ExitInfoButton.onClick.AddListener(() => {
                 OnExitInfoButtonClicked();
                 FindObjectOfType<AppController>().Fade();
@@ -187,9 +196,14 @@ namespace GoogleARCore.Examples.CloudAnchors
                 FindObjectOfType<AppController>().Fade();
             });
 
+            ObjectIndexSlider.onValueChanged.AddListener((i)=> {
+                SetObjectToSpawn((int)i);
+            });
+
             StateIconHolder.gameObject.SetActive(false);
             GlobeIcon.gameObject.SetActive(false);
             CameraIcon.gameObject.SetActive(false);
+
         }
 
         private void OnExitRoomButtonClicked() {
@@ -225,6 +239,13 @@ namespace GoogleARCore.Examples.CloudAnchors
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 
         }
+
+        
+        private void SetObjectToSpawn(int i) {
+            SO_SetObjectToSpawn.Raise(i);
+            
+        }
+        
         
 
         /// <summary>
