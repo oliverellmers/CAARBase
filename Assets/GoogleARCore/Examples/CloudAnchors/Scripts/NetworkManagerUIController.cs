@@ -92,8 +92,8 @@ namespace GoogleARCore.Examples.CloudAnchors
         public Button ResetAppButton;
 
         //Temp
-        public Slider ObjectIndexSlider;
-        public SOEvent_Integer SO_SetObjectToSpawn;
+        //public Slider ObjectIndexSlider;
+        //public SOEvent_Integer SO_SetObjectToSpawn;
 
         /// <summary>
         /// The number of matches that will be shown.
@@ -196,9 +196,11 @@ namespace GoogleARCore.Examples.CloudAnchors
                 FindObjectOfType<AppController>().Fade();
             });
 
+            /*
             ObjectIndexSlider.onValueChanged.AddListener((i)=> {
                 SetObjectToSpawn((int)i);
             });
+            */
 
             StateIconHolder.gameObject.SetActive(false);
             GlobeIcon.gameObject.SetActive(false);
@@ -240,11 +242,12 @@ namespace GoogleARCore.Examples.CloudAnchors
 
         }
 
-        
+        /*
         private void SetObjectToSpawn(int i) {
             SO_SetObjectToSpawn.Raise(i);
             
         }
+        */
         
         
 

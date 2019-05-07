@@ -9,12 +9,18 @@ public class SOEventListener_String : MonoBehaviour
 
     private void OnEnable()
     {
-        Event.RegisterListener(this);
+        if (Event != null)
+        {
+            Event.RegisterListener(this);
+        }
     }
 
     private void OnDisable()
     {
-        Event.UnRegisterListener(this);
+        if (Event != null)
+        {
+            Event.UnRegisterListener(this);
+        }
     }
 
     public void OnEventRaised(string value)

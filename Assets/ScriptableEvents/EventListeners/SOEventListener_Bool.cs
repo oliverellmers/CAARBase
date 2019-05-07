@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-
 public class SOEventListener_Bool : MonoBehaviour
 {
     public SOEvent_Bool Event;
@@ -9,12 +8,18 @@ public class SOEventListener_Bool : MonoBehaviour
 
     private void OnEnable()
     {
-        Event.RegisterListener(this);
+        if (Event != null)
+        {
+            Event.RegisterListener(this);
+        }
     }
 
     private void OnDisable()
     {
-        Event.UnRegisterListener(this);
+        if (Event != null)
+        {
+            Event.UnRegisterListener(this);
+        }
     }
 
     public void OnEventRaised(bool value)

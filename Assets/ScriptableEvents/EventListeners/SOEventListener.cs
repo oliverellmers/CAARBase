@@ -1,20 +1,38 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 
 public class SOEventListener : MonoBehaviour
 {
     public SOEvent Event;
-    public UnityEvent Response;
+    public UnityEvent Response = new UnityEvent();
 
     private void OnEnable()
     {
-        Event.RegisterListener(this);
+        if (Event != null)
+        {
+            Event.RegisterListener(this);
+        }
     }
 
     private void OnDisable()
     {
-        Event.UnRegisterListener(this);
+        if (Event != null)
+        {
+            Event.UnRegisterListener(this);
+        }
+    }
+       
+    /// <summary>
+    /// Only used when dynamically adding this component - so it can still subscribe to the event
+    /// </summary>
+    public void LateRegister()
+    {
+        if (Event != null)
+        {
+            Event.RegisterListener(this);
+        }
     }
 
     public void OnEventRaised()
