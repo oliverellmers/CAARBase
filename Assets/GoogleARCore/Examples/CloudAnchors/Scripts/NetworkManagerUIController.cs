@@ -81,9 +81,9 @@ namespace GoogleARCore.Examples.CloudAnchors
         /// </summary>
         public GameObject JoinRoomListRowPrefab;
 
-        public GameObject StateIconHolder;
-        public GameObject GlobeIcon;
-        public GameObject CameraIcon;
+        public GameObject ShowCameraButton;
+        //public GameObject GlobeIcon;
+        //public GameObject CameraIcon;
 
         public Button ExitRoomButton;
         public Button ExitLobbyButton;
@@ -202,9 +202,9 @@ namespace GoogleARCore.Examples.CloudAnchors
             });
             */
 
-            StateIconHolder.gameObject.SetActive(false);
-            GlobeIcon.gameObject.SetActive(false);
-            CameraIcon.gameObject.SetActive(false);
+            ShowCameraButton.gameObject.SetActive(false);
+            //GlobeIcon.gameObject.SetActive(false);
+            //CameraIcon.gameObject.SetActive(false);
 
         }
 
@@ -214,9 +214,9 @@ namespace GoogleARCore.Examples.CloudAnchors
             m_Manager.StopClient();
             m_Manager.StopHost();
 
-            StateIconHolder.gameObject.SetActive(false);
-            GlobeIcon.gameObject.SetActive(false);
-            CameraIcon.gameObject.SetActive(false);
+            ShowCameraButton.gameObject.SetActive(false);
+            //GlobeIcon.gameObject.SetActive(false);
+            //CameraIcon.gameObject.SetActive(false);
 
             StartCoroutine(ExitDelay());
         }
@@ -293,9 +293,9 @@ namespace GoogleARCore.Examples.CloudAnchors
                     "Cloud Anchor added to session! Attempting to resolve anchor...";
             }
 
-            StateIconHolder.gameObject.SetActive(true);
-            GlobeIcon.gameObject.SetActive(true);
-            CameraIcon.gameObject.SetActive(false);
+            ShowCameraButton.gameObject.SetActive(true);
+            //GlobeIcon.gameObject.SetActive(true);
+            //CameraIcon.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -315,9 +315,9 @@ namespace GoogleARCore.Examples.CloudAnchors
                 SnackbarText.text = "Cloud Anchor could not be hosted. " + response;
             }
 
-            StateIconHolder.gameObject.SetActive(false);
-            GlobeIcon.gameObject.SetActive(false);
-            CameraIcon.gameObject.SetActive(false);
+            //ShowCameraButton.gameObject.SetActive(false);
+            //GlobeIcon.gameObject.SetActive(false);
+            //CameraIcon.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -338,9 +338,9 @@ namespace GoogleARCore.Examples.CloudAnchors
                     "Cloud Anchor could not be resolved. Will attempt again. " + response;
             }
 
-            StateIconHolder.gameObject.SetActive(false);
-            GlobeIcon.gameObject.SetActive(false);
-            CameraIcon.gameObject.SetActive(false);
+            ShowCameraButton.gameObject.SetActive(false);
+            //GlobeIcon.gameObject.SetActive(false);
+            //CameraIcon.gameObject.SetActive(false);
         }
 
         /// <summary>
